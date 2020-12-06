@@ -6,6 +6,13 @@ const menuRef = document.querySelector(".js-menu");
 const themeSwitcherRef = document.getElementById("theme-switch-toggle");
 const bodyRef = document.querySelector("body");
 
+const Theme = {
+  LIGHT: 'light-theme',
+  DARK: 'dark-theme',
+};
+
+console.dir(bodyRef)
+
 const markup = itemsTemplates(menu);
 
 menuRef.insertAdjacentHTML("beforeend", markup);
@@ -16,20 +23,26 @@ themeSwitcherRef.addEventListener("change", changeTheme);
 
 function changeTheme() {
   if (this.checked) {
-    bodyRef.setAttribute("class", "dark-theme");
-    localStorage.setItem("theme", "dark-theme");
+    bodyRef.setAttribute("class", Theme.DARK);
+    localStorage.setItem("theme", Theme.DARK);
   } else {
-    bodyRef.setAttribute("class", "light-theme");
-    localStorage.setItem("theme", "light-theme");
+    bodyRef.setAttribute("class", Theme.LIGHT);
+    localStorage.setItem("theme", Theme.LIGHT);
   }
   localStorage.setItem("switcherChecked", this.checked);
 }
 
 function setTheme() {
-  document.body.classList.remove("dark-theme");
-  document.body.classList.remove("light-theme");
-  document.body.classList.add(localStorage.getItem("theme"));
+  if (localStorage.getItem('theme') !== null) {
+    document.body.classList.add(localStorage.getItem("theme"));
+  }
+    
+  document.body.classList.remove(Theme.DARK);
+  document.body.classList.remove(Theme.LIGHT);
+  
   themeSwitcherRef.checked = JSON.parse(
     localStorage.getItem("switcherChecked"),
   );
 }
+
+
