@@ -11,8 +11,6 @@ const Theme = {
   DARK: 'dark-theme',
 };
 
-console.dir(bodyRef)
-
 const markup = itemsTemplates(menu);
 
 menuRef.insertAdjacentHTML("beforeend", markup);
@@ -33,16 +31,15 @@ function changeTheme() {
 }
 
 function setTheme() {
+
   if (localStorage.getItem('theme') !== null) {
     document.body.classList.add(localStorage.getItem("theme"));
   }
+
+  if (localStorage.getItem('theme') === Theme.DARK) {
+    themeSwitcherRef.checked = true
+  }
     
-  document.body.classList.remove(Theme.DARK);
-  document.body.classList.remove(Theme.LIGHT);
-  
-  themeSwitcherRef.checked = JSON.parse(
-    localStorage.getItem("switcherChecked"),
-  );
 }
 
 
